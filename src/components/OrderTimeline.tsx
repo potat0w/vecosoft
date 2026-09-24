@@ -33,9 +33,50 @@ function getStepState(
 
 type OrderTimelineProps = {
   status: OrderStatus;
+  estimatedDelivery?: string;
 };
 
-export function OrderTimeline({ status }: OrderTimelineProps) {
+function formatDeliveryDate(isoDate: string) {
+  return new Intl.DateTimeFormat("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).format(new Date(`${isoDate}T12:00:00`));
+}
+
+export function OrderTimeline({ status, estimatedDelivery }: OrderTimelineProps) {
+  if (status === "trackingUnavailable") {
+    return (
+      <section className="border-t border-border px-4 py-5 sm:px-6 sm:py-6">
+        <h3 className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-muted">
+          Tracking progress
+        </h3>
+        <div className="rounded-xl bg-stone-100 px-4 py-4 sm:px-5 sm:py-5">
+          <p className="text-sm font-semibold text-stone-800 sm:text-base">
+            Tracking isn&apos;t available yet
+          </p>
+          <p className="mt-1.5 text-sm leading-relaxed text-stone-600">
+            We&apos;ll update you once it ships
+            {estimatedDelivery ? (
+              <>
+                . Estimated delivery{" "}
+                <time
+                  dateTime={estimatedDelivery}
+                  className="font-medium text-stone-800"
+                >
+                  {formatDeliveryDate(estimatedDelivery)}
+                </time>
+              </>
+            ) : (
+              "."
+            )}
+          </p>
+        </div>
+      </section>
+    );
+  }
+
   const current = CURRENT_STEP[status];
   const isDelayed = status === "delayed";
   const isMissing = status === "deliveredNotReceived";

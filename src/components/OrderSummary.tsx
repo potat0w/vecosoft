@@ -112,7 +112,10 @@ export function OrderSummary({ order }: OrderSummaryProps) {
         />
       )}
 
-      <OrderTimeline status={order.status} />
+      <OrderTimeline
+        status={order.status}
+        estimatedDelivery={order.estimatedDelivery}
+      />
     </article>
   );
 }
