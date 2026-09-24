@@ -53,7 +53,9 @@ export function NotReceivedReport({
   }
 
   function submit() {
-    setReportId(`RPT-${orderNumber.replace(/\D/g, "")}-${Date.now().toString().slice(-4)}`);
+    setReportId(
+      `RPT-${orderNumber.replace(/\D/g, "")}-${Date.now().toString().slice(-4)}`,
+    );
     setStep("submitted");
   }
 
@@ -61,16 +63,16 @@ export function NotReceivedReport({
     return (
       <div
         role="status"
-        className="border-t border-rose-200 bg-rose-50 px-4 py-4 sm:px-6 sm:py-5"
+        className="border-t border-border bg-muted-bg px-5 py-5 sm:px-8 sm:py-6"
       >
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
-          <div className="min-w-0 space-y-1.5">
-            <p className="text-sm font-semibold text-rose-900 sm:text-base">
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
+          <div className="min-w-0 space-y-2">
+            <p className="text-xs tracking-[0.2em] text-foreground uppercase">
               Marked as delivered
             </p>
-            <p className="text-sm leading-relaxed text-rose-800/90">
+            <p className="text-sm leading-relaxed text-muted">
               The carrier marked this order delivered on{" "}
-              <time dateTime={estimatedDelivery} className="font-medium text-rose-950">
+              <time dateTime={estimatedDelivery} className="text-foreground">
                 {formatDeliveryDate(estimatedDelivery)}
               </time>
               , but you can still report it if you never got it.
@@ -80,7 +82,7 @@ export function NotReceivedReport({
           <button
             type="button"
             onClick={startReport}
-            className="inline-flex shrink-0 items-center justify-center rounded-xl bg-rose-800 px-4 py-2.5 text-sm font-medium text-rose-50 transition-colors hover:bg-rose-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-800 sm:self-center"
+            className="inline-flex shrink-0 items-center justify-center bg-foreground px-6 py-3 text-xs tracking-[0.2em] text-background uppercase transition-opacity hover:opacity-80 sm:self-center"
           >
             Didn&apos;t receive this
           </button>
@@ -93,20 +95,20 @@ export function NotReceivedReport({
     return (
       <div
         role="status"
-        className="border-t border-rose-200 bg-rose-50 px-4 py-4 sm:px-6 sm:py-5"
+        className="border-t border-border bg-muted-bg px-5 py-5 sm:px-8 sm:py-6"
       >
-        <p className="text-sm font-semibold text-rose-900 sm:text-base">
+        <p className="text-xs tracking-[0.2em] text-foreground uppercase">
           Report submitted
         </p>
-        <p className="mt-1.5 text-sm leading-relaxed text-rose-800/90">
+        <p className="mt-2 text-sm leading-relaxed text-muted">
           We opened case{" "}
-          <span className="font-medium text-rose-950">{reportId}</span> for{" "}
-          {productName} ({orderNumber}). Support will follow up shortly.
+          <span className="text-foreground">{reportId}</span> for {productName}{" "}
+          ({orderNumber}). Support will follow up shortly.
         </p>
         <button
           type="button"
           onClick={() => setStep("idle")}
-          className="mt-4 text-sm font-medium text-rose-900 underline-offset-2 hover:underline"
+          className="mt-4 text-xs tracking-[0.2em] text-foreground uppercase underline-offset-4 hover:underline"
         >
           Close
         </button>
@@ -119,21 +121,24 @@ export function NotReceivedReport({
       role="dialog"
       aria-modal="false"
       aria-labelledby={titleId}
-      className="border-t border-rose-200 bg-rose-50 px-4 py-4 sm:px-6 sm:py-5"
+      className="border-t border-border bg-muted-bg px-5 py-5 sm:px-8 sm:py-6"
     >
-      <div className="mb-4 flex items-start justify-between gap-3">
+      <div className="mb-5 flex items-start justify-between gap-3">
         <div>
-          <p id={titleId} className="text-sm font-semibold text-rose-900 sm:text-base">
+          <p
+            id={titleId}
+            className="text-xs tracking-[0.2em] text-foreground uppercase"
+          >
             Report missing delivery
           </p>
-          <p className="mt-0.5 text-xs text-rose-800/80 sm:text-sm">
+          <p className="mt-1 text-xs tracking-wide text-muted">
             Order {orderNumber} · Step {step === "reason" ? "1" : "2"} of 2
           </p>
         </div>
         <button
           type="button"
           onClick={cancel}
-          className="text-sm font-medium text-rose-800 underline-offset-2 hover:underline"
+          className="text-xs tracking-[0.2em] text-muted uppercase transition-colors hover:text-foreground"
         >
           Cancel
         </button>
@@ -141,16 +146,14 @@ export function NotReceivedReport({
 
       {step === "reason" && (
         <fieldset className="space-y-2">
-          <legend className="mb-2 text-sm text-rose-900">
-            What happened?
-          </legend>
+          <legend className="mb-3 text-sm text-foreground">What happened?</legend>
           {REASONS.map((item) => (
             <label
               key={item.id}
-              className={`flex cursor-pointer items-center gap-3 rounded-xl border px-3 py-2.5 text-sm transition-colors ${
+              className={`flex cursor-pointer items-center gap-3 border px-4 py-3 text-sm transition-colors ${
                 reason === item.id
-                  ? "border-rose-400 bg-white text-rose-950"
-                  : "border-rose-200/80 bg-rose-50/50 text-rose-900 hover:border-rose-300"
+                  ? "border-foreground bg-surface text-foreground"
+                  : "border-border bg-surface/50 text-muted hover:border-foreground/40 hover:text-foreground"
               }`}
             >
               <input
@@ -159,17 +162,17 @@ export function NotReceivedReport({
                 value={item.id}
                 checked={reason === item.id}
                 onChange={() => setReason(item.id)}
-                className="size-4 accent-rose-700"
+                className="size-4 accent-foreground"
               />
               {item.label}
             </label>
           ))}
-          <div className="flex justify-end pt-2">
+          <div className="flex justify-end pt-3">
             <button
               type="button"
               disabled={!reason}
               onClick={() => setStep("details")}
-              className="inline-flex items-center justify-center rounded-xl bg-rose-800 px-4 py-2.5 text-sm font-medium text-rose-50 transition-colors hover:bg-rose-900 disabled:cursor-not-allowed disabled:opacity-40"
+              className="inline-flex items-center justify-center bg-foreground px-6 py-3 text-xs tracking-[0.2em] text-background uppercase transition-opacity hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-30"
             >
               Continue
             </button>
@@ -178,32 +181,32 @@ export function NotReceivedReport({
       )}
 
       {step === "details" && (
-        <div className="space-y-3">
-          <label className="block space-y-1.5">
-            <span className="text-sm text-rose-900">
+        <div className="space-y-4">
+          <label className="block space-y-2">
+            <span className="text-sm text-foreground">
               Anything else we should know?{" "}
-              <span className="text-rose-700/70">(optional)</span>
+              <span className="text-muted">(optional)</span>
             </span>
             <textarea
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               rows={3}
               placeholder="Gate code, neighbors, porch location…"
-              className="w-full resize-y rounded-xl border border-rose-200 bg-white px-3 py-2 text-sm text-foreground placeholder:text-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-700"
+              className="w-full resize-y border border-border bg-surface px-4 py-3 text-sm text-foreground placeholder:text-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
             />
           </label>
           <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
             <button
               type="button"
               onClick={() => setStep("reason")}
-              className="inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-sm font-medium text-rose-900 ring-1 ring-inset ring-rose-300 transition-colors hover:bg-rose-100"
+              className="inline-flex items-center justify-center border border-border px-6 py-3 text-xs tracking-[0.2em] text-foreground uppercase transition-opacity hover:opacity-60"
             >
               Back
             </button>
             <button
               type="button"
               onClick={submit}
-              className="inline-flex items-center justify-center rounded-xl bg-rose-800 px-4 py-2.5 text-sm font-medium text-rose-50 transition-colors hover:bg-rose-900"
+              className="inline-flex items-center justify-center bg-foreground px-6 py-3 text-xs tracking-[0.2em] text-background uppercase transition-opacity hover:opacity-80"
             >
               Submit report
             </button>

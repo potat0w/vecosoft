@@ -48,23 +48,20 @@ function formatDeliveryDate(isoDate: string) {
 export function OrderTimeline({ status, estimatedDelivery }: OrderTimelineProps) {
   if (status === "trackingUnavailable") {
     return (
-      <section className="border-t border-border px-4 py-5 sm:px-6 sm:py-6">
-        <h3 className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-muted">
+      <section className="border-t border-border px-5 py-6 sm:px-8 sm:py-8">
+        <h3 className="mb-4 text-[10px] tracking-[0.3em] text-muted uppercase">
           Tracking progress
         </h3>
-        <div className="rounded-xl bg-stone-100 px-4 py-4 sm:px-5 sm:py-5">
-          <p className="text-sm font-semibold text-stone-800 sm:text-base">
+        <div className="border border-border bg-muted-bg px-5 py-5">
+          <p className="text-sm tracking-wide text-foreground sm:text-base">
             Tracking isn&apos;t available yet
           </p>
-          <p className="mt-1.5 text-sm leading-relaxed text-stone-600">
+          <p className="mt-2 text-sm leading-relaxed text-muted">
             We&apos;ll update you once it ships
             {estimatedDelivery ? (
               <>
                 . Estimated delivery{" "}
-                <time
-                  dateTime={estimatedDelivery}
-                  className="font-medium text-stone-800"
-                >
+                <time dateTime={estimatedDelivery} className="text-foreground">
                   {formatDeliveryDate(estimatedDelivery)}
                 </time>
               </>
@@ -82,8 +79,8 @@ export function OrderTimeline({ status, estimatedDelivery }: OrderTimelineProps)
   const isMissing = status === "deliveredNotReceived";
 
   return (
-    <section className="border-t border-border px-4 py-5 sm:px-6 sm:py-6">
-      <h3 className="mb-4 text-xs font-medium uppercase tracking-[0.18em] text-muted">
+    <section className="border-t border-border px-5 py-6 sm:px-8 sm:py-8">
+      <h3 className="mb-5 text-[10px] tracking-[0.3em] text-muted uppercase">
         Tracking progress
       </h3>
 
@@ -98,12 +95,8 @@ export function OrderTimeline({ status, estimatedDelivery }: OrderTimelineProps)
               {!isLast && (
                 <span
                   aria-hidden
-                  className={`absolute top-3 left-[7px] h-[calc(100%-4px)] w-0.5 ${
-                    state === "done"
-                      ? isDelayed
-                        ? "bg-amber-600"
-                        : "bg-teal-600"
-                      : "bg-border"
+                  className={`absolute top-3 left-[7px] h-[calc(100%-4px)] w-px ${
+                    state === "done" ? "bg-foreground" : "bg-border"
                   }`}
                 />
               )}
@@ -112,14 +105,10 @@ export function OrderTimeline({ status, estimatedDelivery }: OrderTimelineProps)
                 aria-hidden
                 className={`relative z-10 mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full ${
                   state === "done"
-                    ? isDelayed
-                      ? "bg-amber-600 text-white"
-                      : "bg-teal-600 text-white"
+                    ? "bg-foreground text-background"
                     : state === "current"
-                      ? isDelayed
-                        ? "bg-surface ring-2 ring-amber-600 ring-offset-2 ring-offset-surface"
-                        : "bg-surface ring-2 ring-teal-600 ring-offset-2 ring-offset-surface"
-                      : "bg-surface ring-2 ring-border"
+                      ? "bg-surface ring-1 ring-foreground ring-offset-2 ring-offset-surface"
+                      : "bg-surface ring-1 ring-border"
                 }`}
               >
                 {state === "done" && (
@@ -139,37 +128,23 @@ export function OrderTimeline({ status, estimatedDelivery }: OrderTimelineProps)
                   </svg>
                 )}
                 {state === "current" && (
-                  <span
-                    className={`h-1.5 w-1.5 rounded-full ${
-                      isDelayed ? "bg-amber-600" : "bg-teal-600"
-                    }`}
-                  />
+                  <span className="h-1.5 w-1.5 rounded-full bg-foreground" />
                 )}
               </span>
 
               <div className="min-w-0 flex-1 pt-px">
                 <p
-                  className={`text-sm font-medium sm:text-base ${
-                    state === "upcoming"
-                      ? "text-muted"
-                      : state === "current"
-                        ? isDelayed
-                          ? "text-amber-900"
-                          : "text-teal-800"
-                        : "text-foreground"
+                  className={`text-sm tracking-wide sm:text-base ${
+                    state === "upcoming" ? "text-muted" : "text-foreground"
                   }`}
                 >
                   {label}
                 </p>
-                <p className="mt-0.5 text-xs sm:text-sm">
+                <p className="mt-0.5 text-xs tracking-wide sm:text-sm">
                   {state === "done" && (
                     <span
                       className={
-                        isDeliveredStep
-                          ? "font-medium text-rose-700"
-                          : isDelayed
-                            ? "text-amber-700"
-                            : "text-teal-700"
+                        isDeliveredStep ? "text-rose-800" : "text-muted"
                       }
                     >
                       {isDeliveredStep
@@ -178,11 +153,7 @@ export function OrderTimeline({ status, estimatedDelivery }: OrderTimelineProps)
                     </span>
                   )}
                   {state === "current" && (
-                    <span
-                      className={`font-medium ${
-                        isDelayed ? "text-amber-800" : "text-teal-700"
-                      }`}
-                    >
+                    <span className="text-foreground">
                       {isDelayed ? "Delayed here" : "Current status"}
                     </span>
                   )}

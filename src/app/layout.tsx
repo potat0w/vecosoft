@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
-import { DM_Sans, Fraunces } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Order Tracking",
+  title: "Vecoso | Order Tracking",
   description: "Track your order status and delivery details",
 };
 
@@ -21,7 +21,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${dmSans.variable} ${fraunces.variable} h-full antialiased`}
+      className={`${inter.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background font-sans text-foreground antialiased">
         {children}

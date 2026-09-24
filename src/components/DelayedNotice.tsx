@@ -35,23 +35,23 @@ export function DelayedNotice({
   return (
     <div
       role="alert"
-      className="border-t border-amber-200 bg-amber-50 px-4 py-4 sm:px-6 sm:py-5"
+      className="border-t border-border bg-muted-bg px-5 py-5 sm:px-8 sm:py-6"
     >
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
-        <div className="min-w-0 space-y-1.5">
-          <p className="text-sm font-semibold text-amber-900 sm:text-base">
+      <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
+        <div className="min-w-0 space-y-2">
+          <p className="text-xs tracking-[0.2em] text-foreground uppercase">
             Delivery is overdue
           </p>
-          <p className="text-sm leading-relaxed text-amber-800/90">
+          <p className="text-sm leading-relaxed text-muted">
             Estimated delivery was{" "}
             <time
               dateTime={estimatedDelivery}
-              className="font-medium text-amber-950 line-through decoration-amber-700/60"
+              className="text-foreground line-through decoration-foreground/40"
             >
               {formatDeliveryDate(estimatedDelivery)}
             </time>
             . That date has passed — this order is{" "}
-            <span className="font-semibold text-amber-950">
+            <span className="text-foreground">
               {overdueDays} {overdueDays === 1 ? "day" : "days"} late
             </span>
             .
@@ -60,7 +60,7 @@ export function DelayedNotice({
 
         <a
           href={supportHref}
-          className="inline-flex shrink-0 items-center justify-center rounded-xl bg-amber-800 px-4 py-2.5 text-sm font-medium text-amber-50 transition-colors hover:bg-amber-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-800 sm:self-center"
+          className="inline-flex shrink-0 items-center justify-center bg-foreground px-6 py-3 text-xs tracking-[0.2em] text-background uppercase transition-opacity hover:opacity-80 sm:self-center"
         >
           Contact support
         </a>

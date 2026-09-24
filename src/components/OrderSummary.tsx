@@ -12,10 +12,10 @@ const STATUS_LABEL: Record<OrderStatus, string> = {
 };
 
 const STATUS_CLASS: Record<OrderStatus, string> = {
-  delayed: "bg-amber-50 text-amber-700 ring-amber-700/20",
-  deliveredNotReceived: "bg-rose-50 text-rose-700 ring-rose-700/20",
-  trackingUnavailable: "bg-stone-100 text-stone-600 ring-stone-600/20",
-  normal: "bg-teal-50 text-teal-700 ring-teal-700/20",
+  delayed: "border-amber-800/30 text-amber-900",
+  deliveredNotReceived: "border-rose-800/30 text-rose-900",
+  trackingUnavailable: "border-foreground/20 text-muted",
+  normal: "border-foreground/20 text-foreground",
 };
 
 function formatPrice(price: number) {
@@ -34,61 +34,56 @@ export function OrderSummary({ order }: OrderSummaryProps) {
   const lineTotal = order.price * order.qty;
 
   return (
-    <article className="overflow-hidden rounded-2xl bg-surface ring-1 ring-border">
-      <div className="flex gap-4 p-4 sm:gap-6 sm:p-6">
-        <div className="relative h-24 w-20 shrink-0 overflow-hidden rounded-xl bg-border sm:h-36 sm:w-28 md:h-40 md:w-32">
+    <article className="overflow-hidden border border-border bg-surface">
+      <div className="flex gap-5 p-5 sm:gap-8 sm:p-8">
+        <div className="relative h-28 w-[5.5rem] shrink-0 overflow-hidden bg-muted-bg sm:h-40 sm:w-32">
           <Image
             src={order.image}
             alt={order.productName}
             fill
-            sizes="(max-width: 640px) 80px, 128px"
+            sizes="(max-width: 640px) 88px, 128px"
             className="object-cover"
           />
         </div>
 
-        <div className="flex min-w-0 flex-1 flex-col gap-3 sm:gap-4">
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
-            <div className="min-w-0 space-y-1">
-              <h2 className="font-display text-lg leading-snug tracking-tight text-foreground sm:text-xl md:text-2xl">
+        <div className="flex min-w-0 flex-1 flex-col gap-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+            <div className="min-w-0 space-y-2">
+              <h2 className="font-display text-xl leading-snug text-foreground sm:text-2xl">
                 {order.productName}
               </h2>
-              <p className="text-sm text-muted">
-                Order{" "}
-                <span className="font-medium text-foreground">
-                  {order.orderNumber}
-                </span>
+              <p className="text-xs tracking-[0.15em] text-muted uppercase">
+                Order {order.orderNumber}
               </p>
             </div>
 
             <span
-              className={`inline-flex w-fit shrink-0 items-center rounded-full px-2.5 py-1 text-xs font-medium tracking-wide ring-1 ring-inset sm:text-sm ${STATUS_CLASS[order.status]}`}
+              className={`inline-flex w-fit shrink-0 items-center border px-3 py-1.5 text-[10px] tracking-[0.2em] uppercase ${STATUS_CLASS[order.status]}`}
             >
               {STATUS_LABEL[order.status]}
             </span>
           </div>
 
-          <dl className="mt-auto grid grid-cols-2 gap-x-4 gap-y-2 border-t border-border pt-3 text-sm sm:grid-cols-3 sm:gap-6 sm:pt-4 md:text-base">
+          <dl className="mt-auto grid grid-cols-2 gap-x-6 gap-y-3 border-t border-border pt-4 text-sm sm:grid-cols-3">
             <div>
-              <dt className="text-xs uppercase tracking-wider text-muted">
+              <dt className="text-[10px] tracking-[0.2em] text-muted uppercase">
                 Qty
               </dt>
-              <dd className="mt-0.5 font-medium text-foreground">
-                {order.qty}
-              </dd>
+              <dd className="mt-1 text-foreground">{order.qty}</dd>
             </div>
             <div>
-              <dt className="text-xs uppercase tracking-wider text-muted">
+              <dt className="text-[10px] tracking-[0.2em] text-muted uppercase">
                 Unit price
               </dt>
-              <dd className="mt-0.5 font-medium text-foreground">
+              <dd className="mt-1 text-foreground">
                 {formatPrice(order.price)}
               </dd>
             </div>
             <div className="col-span-2 sm:col-span-1">
-              <dt className="text-xs uppercase tracking-wider text-muted">
+              <dt className="text-[10px] tracking-[0.2em] text-muted uppercase">
                 Total
               </dt>
-              <dd className="mt-0.5 font-medium text-foreground">
+              <dd className="mt-1 text-foreground">
                 {formatPrice(lineTotal)}
               </dd>
             </div>
