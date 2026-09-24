@@ -15,7 +15,7 @@ export type Order = {
   status: OrderStatus;
 };
 
- const IMG = {
+const IMG = {
   coat: "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=400&h=500&fit=crop",
   dress: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=500&fit=crop",
   blazer: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&h=500&fit=crop",
@@ -39,7 +39,7 @@ export const mockOrders: Order[] = [
     qty: 1,
     price: 2450,
     orderNumber: "ORD-78421",
-    estimatedDelivery: "2026-09-28",
+    estimatedDelivery: "2026-09-18",
     status: "delayed",
   },
   {
@@ -49,7 +49,7 @@ export const mockOrders: Order[] = [
     qty: 1,
     price: 1890,
     orderNumber: "ORD-78455",
-    estimatedDelivery: "2026-09-26",
+    estimatedDelivery: "2026-09-20",
     status: "delayed",
   },
   {
@@ -59,7 +59,7 @@ export const mockOrders: Order[] = [
     qty: 2,
     price: 1650,
     orderNumber: "ORD-78502",
-    estimatedDelivery: "2026-09-30",
+    estimatedDelivery: "2026-09-22",
     status: "delayed",
   },
 
