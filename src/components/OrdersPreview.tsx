@@ -1,0 +1,80 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import { OrderSummary } from "@/components/OrderSummary";
+import { mockOrders, type OrderStatus } from "@/lib/mockOrders";
+
+type PreviewMode = "all" | OrderStatus;
+
+const PREVIEW_OPTIONS: { id: PreviewMode; label: string }[] = [
+  { id: "all", label: "All" },
+  { id: "normal", label: "Normal" },
+  { id: "delayed", label: "Delayed" },
+  { id: "deliveredNotReceived", label: "Not received" },
+  { id: "trackingUnavailable", label: "No tracking" },
+];
+
+export function OrdersPreview() {
+  const [mode, setMode] = useState<PreviewMode>("all");
+
+  const orders = useMemo(() => {
+    if (mode === "all") return mockOrders;
+    return mockOrders.filter((order) => order.status === mode);
+  }, [mode]);
+
+  return (
+    <div className="flex flex-1 flex-col">
+      <header className="border-b border-border bg-surface/80 px-4 py-5 backdrop-blur-sm sm:px-6 md:px-8">
+        <div className="mx-auto w-full max-w-3xl md:max-w-4xl">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted">
+            Orders
+          </p>
+          <h1 className="mt-1 font-display text-2xl tracking-tight text-foreground sm:text-3xl">
+            Order summary
+          </h1>
+
+          <div className="mt-4">
+            <p className="mb-2 text-xs font-medium uppercase tracking-wider text-muted">
+              Preview
+            </p>
+            <div
+              role="tablist"
+              aria-label="Preview order states"
+              className="flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            >
+              {PREVIEW_OPTIONS.map((option) => {
+                const active = mode === option.id;
+                return (
+                  <button
+                    key={option.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={active}
+                    onClick={() => setMode(option.id)}
+                    className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-medium tracking-wide transition-colors sm:text-sm ${
+                      active
+                        ? "bg-foreground text-surface"
+                        : "bg-background text-muted ring-1 ring-border hover:text-foreground"
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-6 sm:px-6 sm:py-8 md:max-w-4xl md:px-8 md:py-10">
+        <ul className="flex flex-col gap-4 sm:gap-5">
+          {orders.map((order) => (
+            <li key={order.id}>
+              <OrderSummary order={order} />
+            </li>
+          ))}
+        </ul>
+      </main>
+    </div>
+  );
+}
