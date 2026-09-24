@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Order Tracking
 
-## Getting Started
+A responsive Next.js screen for viewing and tracking orders. Built to handle common delivery edge cases—delays, missing packages, and tracking that isn’t available yet—with a clear status timeline and mock data for local preview.
 
-First, run the development server:
+## Features
+
+- **Order summary** — product image, name, quantity, price, order number, and status
+- **Vertical timeline** — Processing → Shipped → Out for Delivery → Delivered (done / current / upcoming)
+- **Delayed orders** — overdue estimated delivery callout and Contact support action
+- **Delivered, not received** — still shows Delivered, plus a “Didn’t receive this” report flow
+- **Tracking unavailable** — placeholder message instead of an empty timeline
+- **Preview switcher** — filter mock orders by status (All, Normal, Delayed, Not received, No tracking)
+- **Pagination** — three orders per page
+- **List states** — reusable loading, empty, and error UI (`OrderStates`)
+
+## Tech stack
+
+- [Next.js](https://nextjs.org/) 16 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS 4
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command         | Description              |
+| --------------- | ------------------------ |
+| `npm run dev`   | Start the dev server     |
+| `npm run build` | Production build         |
+| `npm start`     | Serve the production build |
+| `npm run lint`  | Run ESLint               |
 
-## Learn More
+## Project structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+  app/                  # App Router layout and home page
+  components/
+    OrderSummary.tsx    # Product + order details card
+    OrderTimeline.tsx   # Status timeline / unavailable message
+    DelayedNotice.tsx   # Overdue delivery + support CTA
+    NotReceivedReport.tsx  # Missing-delivery report flow
+    OrdersPreview.tsx   # Status filter + pagination
+    OrderStates.tsx     # Loading / empty / error UI
+  lib/
+    mockOrders.ts       # Sample orders and status types
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Mock order statuses
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Status                  | Behavior                                              |
+| ----------------------- | ----------------------------------------------------- |
+| `normal`                | In transit; timeline at Out for Delivery              |
+| `delayed`               | Overdue notice + Contact support                      |
+| `deliveredNotReceived`  | Delivered on timeline + report missing package        |
+| `trackingUnavailable`   | “We’ll update you once it ships” instead of timeline  |
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Data lives in `src/lib/mockOrders.ts`.
