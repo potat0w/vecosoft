@@ -5,7 +5,7 @@ export function SiteFooter() {
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           <div className="sm:col-span-2 lg:col-span-1">
             <p className="font-display text-xl tracking-[0.3em] uppercase">
-              Vecoso
+              Shipment
             </p>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-background/60">
               Timeless pieces, carefully tracked from warehouse to your door.
@@ -73,7 +73,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-background/15 pt-8 text-xs text-background/50 sm:flex-row">
-          <p>© {new Date().getFullYear()} Vecoso. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Shipment. All rights reserved.</p>
           <div className="flex gap-6">
             <a href="/" className="transition-colors hover:text-background/80">
               Privacy Policy

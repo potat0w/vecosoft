@@ -13,7 +13,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Vecoso | Order Tracking",
+  title: "Shipment | Order Tracking",
   description: "Track your order status and delivery details",
 };
 

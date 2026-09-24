@@ -27,7 +27,7 @@ export function SiteHeader() {
           href="/"
           className="absolute left-1/2 -translate-x-1/2 font-display text-xl tracking-[0.3em] text-foreground uppercase lg:text-2xl"
         >
-          Vecoso
+          Shipment
         </a>
 
         <div className="ml-auto flex items-center gap-1 sm:gap-2">
